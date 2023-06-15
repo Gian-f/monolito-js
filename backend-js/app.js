@@ -4,6 +4,7 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const app = express();
 const globalResources = require('./middlewares/globalResources');
 const { connect } = require("./db");
+
 const produtoRoutes = require('./routes/produtoRoutes');
 const dogRoutes = require('./routes/dogRoutes');
 
@@ -35,7 +36,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Uso das novas rotas
 app.use('/produto', produtoRoutes);
-app.use('/', dogRoutes);
+app.use('/dog', dogRoutes);
 
 // Rota base
 app.get('/', (req, res) => res.json({ message: 'Funcionando!' }));
@@ -43,5 +44,5 @@ app.get('/', (req, res) => res.json({ message: 'Funcionando!' }));
 // Configuração do servidor
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log('API funcionando!');
+  console.log('API funcionando na porta: ' + port);
 });

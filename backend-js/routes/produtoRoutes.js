@@ -35,7 +35,7 @@ const router = express.Router();
  *                    type: string
  *                    description: Preço do produto
  */
-router.get('/produto', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     res.json(await req.produtoService.findAll());
   } catch (ex) {
@@ -156,9 +156,10 @@ router.get('/:id', async (req, res) => {
  *                  type: string
  *                  description: Mensagem de erro
  */
-router.post('/produto', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    res.json(await req.produtoService.create(req.body));
+    const produtoCriado = await req.produtoService.create(req.body);
+    res.status(201).json(produtoCriado);
   } catch (ex) {
     console.log(ex);
     res.status(400).json({ erro: `${ex}` });
@@ -229,7 +230,7 @@ router.post('/produto', async (req, res) => {
  *                  description: Mensagem de erro
  */
 
-router.put('/produto/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     res.json(await req.produtoService.update(req.params.id, req.body));
   } catch (ex) {
@@ -275,7 +276,7 @@ router.put('/produto/:id', async (req, res) => {
  *                  description: Mensagem de erro
  */
 
-router.delete('/produto/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     res.json(await req.produtoService.delete(req.params.id));
   } catch (ex) {
